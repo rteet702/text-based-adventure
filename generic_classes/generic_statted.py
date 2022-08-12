@@ -1,0 +1,34 @@
+from random import randint
+
+class GenericStatted:
+    def __init__(self, name:str) -> None:
+        # User's display name
+        self.name = name
+        # User's Stats
+        self.stats =  GenericStatted.generate_stat_block(3)
+
+    def __repr__(self) -> str:
+        return f'Entity Object: {self.name}'
+
+    @staticmethod
+    def generate_stat_block(volatility:int = 1) -> dict:
+        stat_block = {
+            # XP and Level
+            "xp" : 0,
+            "xp_to_level" : 100,
+            "level" : 1,
+            # Current well-being stats
+            "max_health" : 100,
+            "cur_health" : 100,
+            "max_mana" : 20,
+            "cur_mana" : 20,
+
+            # Stat Block
+            "str" : 10 + randint(-volatility, volatility),
+            "dex" : 10 + randint(-volatility, volatility),
+            "int" : 10 + randint(-volatility, volatility),
+            "wis" : 10 + randint(-volatility, volatility),
+            "con" : 10 + randint(-volatility, volatility),
+            "cha" : 10 + randint(-volatility, volatility)
+        }
+        return stat_block
