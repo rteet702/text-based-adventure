@@ -1,4 +1,5 @@
 from generic_classes.generic_statted import GenericStatted
+from random import randint
 import os
 
 class Game:
@@ -48,6 +49,13 @@ class Game:
             self.diff_scale = Game.difficulties.index(answer) - 2
         else:
             return self.set_difficulty()
+
+    def generate_encounter(self, difficulty):
+        # start by calculating the difficulty, this should vary depending on the difficulty chosen by the player.
+        true_scaling = difficulty + randint(-1, 1 + self.diff_scale)
+        match true_scaling:
+            case -1:
+                self.query_player('Looks like a relaxed day of traveling...\nPress enter to continue')
 
     @staticmethod
     def query_player(question:str, clr:bool = True) -> str:
