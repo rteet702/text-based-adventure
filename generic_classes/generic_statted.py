@@ -22,7 +22,9 @@ class GenericStatted:
             "cur_health" : 100,
             "max_mana" : 20,
             "cur_mana" : 20,
-
+            # COMBAT
+            "initiative" : 10,
+            "armor_class" : 10,
             # Stat Block
             "str" : 10 + randint(-volatility, volatility),
             "dex" : 10 + randint(-volatility, volatility),
