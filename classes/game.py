@@ -1,4 +1,5 @@
 from generic_classes.generic_statted import GenericStatted
+from classes.bad_guy import Goblin
 from random import randint
 import os
 
@@ -28,6 +29,9 @@ class Game:
         # Difficulty Settings
         self.set_difficulty()
 
+        # Test combat_encounter
+        self.combat_enounter(Goblin())
+
     def create_character(self) -> None:
         # This method is called at the beginning of the game in order to create the player's main character.
         # Should this not be called... the game just is not going to work.
@@ -50,12 +54,34 @@ class Game:
         else:
             return self.set_difficulty()
 
-    def generate_encounter(self, difficulty):
+    def generate_encounter(self, difficulty:int) -> None:
         # start by calculating the difficulty, this should vary depending on the difficulty chosen by the player.
-        true_scaling = difficulty + randint(-1, 1 + self.diff_scale)
+        true_scaling = difficulty + randint(-1, 2 + self.diff_scale)
         match true_scaling:
             case -1:
                 self.query_player('Looks like a relaxed day of traveling...\nPress enter to continue')
+            case 0:
+                # non-combat_encounter
+                pass
+            case 1:
+                # one enemy
+                pass
+            case _:
+                if randint(0, 1) == 0:
+                    # One Difficult Enemy
+                    pass
+                else:
+                    # multiple easier enemies
+                    pass
+
+    def combat_enounter(self, enemies:list | object) -> None:
+        if len(enemies) == 1:
+            while enemies.stats["cur_health"] > 0 and self.player_character.stats["cur_health"] > 0:
+                action = self.query_player(f'What will you do?')
+                if action.lower() == 'attack':
+                    self.player_character.unarmed_attack(enemies)
+                
+                enemies.unarmed_attack(self)
 
     @staticmethod
     def query_player(question:str, clr:bool = True) -> str:

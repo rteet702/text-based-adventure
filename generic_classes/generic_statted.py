@@ -10,6 +10,16 @@ class GenericStatted:
     def __repr__(self) -> str:
         return f'Entity Object: {self.name}'
 
+    def unarmed_attack(self, target):
+        if target.stats:
+            if randint(1, 20) >= target.stats["armor_class"]:
+                damage = randint(1, self.stats["str"])
+                target.stats["cur_health"] -= damage
+                print(f'{self.name} hit and did {damage} damage!')
+
+            else:
+                print('You missed!')
+
     @staticmethod
     def generate_stat_block(volatility:int = 1) -> dict:
         stat_block = {
