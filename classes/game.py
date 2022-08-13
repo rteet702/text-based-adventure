@@ -29,9 +29,6 @@ class Game:
         # Difficulty Settings
         self.set_difficulty()
 
-        # Test combat_encounter
-        self.combat_enounter(GenericStatted('Goblin'))
-
     def create_character(self) -> None:
         # This method is called at the beginning of the game in order to create the player's main character.
         # Should this not be called... the game just is not going to work.
@@ -74,13 +71,13 @@ class Game:
                     # multiple easier enemies
                     pass
 
-    def combat_enounter(self, enemies:list | object) -> None:
-        while enemies.stats["cur_health"] > 0 and self.player_character.stats["cur_health"] > 0:
+    def combat_enounter(self, opponent:object) -> None:
+        while opponent.stats["cur_health"] > 0 and self.player_character.stats["cur_health"] > 0:
             action = self.query_player(f'What will you do?')
             if action.lower() == 'attack':
-                self.player_character.unarmed_attack(enemies)
+                self.player_character.unarmed_attack(opponent)
             
-            enemies.unarmed_attack(self)
+            opponent.unarmed_attack(self)
 
     @staticmethod
     def query_player(question:str, clr:bool = True) -> str:
