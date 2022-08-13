@@ -1,4 +1,4 @@
-from generic_classes.generic_statted import GenericStatted
+from classes.generic_statted import GenericStatted
 from classes.bad_guy import Goblin
 from random import randint
 import os
@@ -30,7 +30,7 @@ class Game:
         self.set_difficulty()
 
         # Test combat_encounter
-        self.combat_enounter(Goblin())
+        self.combat_enounter(GenericStatted('Goblin'))
 
     def create_character(self) -> None:
         # This method is called at the beginning of the game in order to create the player's main character.
@@ -75,13 +75,12 @@ class Game:
                     pass
 
     def combat_enounter(self, enemies:list | object) -> None:
-        if len(enemies) == 1:
-            while enemies.stats["cur_health"] > 0 and self.player_character.stats["cur_health"] > 0:
-                action = self.query_player(f'What will you do?')
-                if action.lower() == 'attack':
-                    self.player_character.unarmed_attack(enemies)
-                
-                enemies.unarmed_attack(self)
+        while enemies.stats["cur_health"] > 0 and self.player_character.stats["cur_health"] > 0:
+            action = self.query_player(f'What will you do?')
+            if action.lower() == 'attack':
+                self.player_character.unarmed_attack(enemies)
+            
+            enemies.unarmed_attack(self)
 
     @staticmethod
     def query_player(question:str, clr:bool = True) -> str:

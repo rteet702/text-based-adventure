@@ -1,4 +1,4 @@
-from ..generic_classes.generic_statted import GenericStatted
+from classes.generic_statted import GenericStatted
 from random import randint
 
 class Goblin(GenericStatted):
